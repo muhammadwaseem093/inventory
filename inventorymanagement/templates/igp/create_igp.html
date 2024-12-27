@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Create IGP</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card mt-4 mx-auto p-4 bg-light shadow-sm">
+        <div class="card-body">
+          <div class="container">
+            <form id="contact-form" role="form" method="POST" action="{% url 'process_create_igp' %}">
+              {% csrf_token %}
+              <div class="controls">
+                
+                <!-- IGP Number and Messer -->
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <label for="igp_number">IGP Number *</label>
+                      <input
+                        id="igp_number"
+                        type="text"
+                        name="igp_number"
+                        class="form-control"
+                        placeholder="Enter IGP Number"
+                        required="required"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <label for="messer">Messer *</label>
+                      <input
+                        id="messer"
+                        type="text"
+                        name="messer"
+                        class="form-control"
+                        placeholder="Enter Messer"
+                        required="required"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <label for="messer">Date *</label>
+                      <input
+                        id="date"
+                        type="date"
+                        name="date"
+                        class="form-control"
+                        required="required"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <label for="igp_number">Vehicle Number</label>
+                      <input
+                        id="vehicle_number"
+                        type="text"
+                        name="vehicle_number"
+                        class="form-control"
+                        placeholder="Enter Vehicle Number"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <label for="igp.vehicle_type">Vehicle Type </label>
+                  <select id="vehicle_type" name="vehicle_type" class="form-control" required="required">
+                    <option value="mazda">Mazda</option>
+                    <option value="toyota">Toyota</option>
+                    <option value="suzuki">Suzuki</option>
+                  </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <label for="messer">Driver Name</label>
+                      <input
+                        id="driver_name"
+                        type="text"
+                        name="driver_name"
+                        class="form-control"
+                        placeholder="Enter Driver Name"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group mb-3">
+                      <label for="messer">Driver CNIC</label>
+                      <input
+                        id="driver_cnic"
+                        type="text"
+                        name="driver_cnic"
+                        class="form-control"
+                        placeholder="00000-0000000-0"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="type">Type *</label>
+                    <select id="type" name="type" class="form-control" required="required">
+                      <option value="Raw material">Raw Material</option>
+                    </select>
+                  </div>
+                </div>
+                </div>
+
+                <!-- Address -->
+                <div class="form-group mb-3">
+                  <label for="address">Address</label>
+                  <input
+                    id="address"
+                    type="text"
+                    name="address"
+                    class="form-control"
+                    placeholder="Enter Address"
+                  />
+                </div>
+
+                <!-- Type -->
+                
+
+                <!-- No of Items Input -->
+                <div class="form-group mb-3">
+                  <label for="num_items">Number of Items *</label>
+                  <input
+                    id="num_items"
+                    type="number"
+                    name="num_items"
+                    class="form-control"
+                    placeholder="Enter Number of Items"
+                    required="required"
+                  />
+                </div>
+
+                <!-- No of Items Table -->
+                <div class="form-group mb-3">
+                  <label for="items">Items</label>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Sr No</th>
+                          <th>Description</th>
+                          <th>Unit</th>
+                          <th>Quantity</th>
+                        </tr>
+                      </thead>
+                      <tbody id="items_table_body">
+                        <!-- Rows will be dynamically generated here -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Submit and Cancel Buttons -->
+                <div class="text-center mt-4">
+                  <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                  <a href="{% url 'igp_entry' %}" class="btn btn-primary btn-lg">Clear</a>
+                  <a href="{% url 'view_igp' %}" class="btn btn-danger btn-lg">Cancel</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for dynamic row creation -->
+<script>
+  const numItemsInput = document.getElementById('num_items');
+  const itemsTableBody = document.getElementById('items_table_body');
+  
+  // Ensure the value is never less than 1
+  numItemsInput.addEventListener('input', function () {
+    let numRows = parseInt(numItemsInput.value) || 0;
+    
+    // Stop creating input fields if the value is 0 or negative
+    if (numRows <= 0) {
+      numItemsInput.value = 0; // Set to 1 if the value is less than or equal to 0
+      numRows = 0; // Reset number of rows to 1
+    }
+
+    // Clear existing rows before creating new ones
+    itemsTableBody.innerHTML = '';
+
+    // Generate rows based on the positive value of numRows
+    for (let i = 1; i <= numRows; i++) {
+      const row = document.createElement('tr');
+      
+      row.innerHTML = `
+        <td>${i}</td>
+        <td>
+          <input
+            type="text"
+            name="description_${i}"
+            class="form-control"
+            placeholder="Enter Description"
+            required="required"
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            name="unit_${i}"
+            class="form-control"
+            placeholder="Enter Unit"
+            required="required"
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            name="quantity_${i}"
+            class="form-control"
+            placeholder="Enter Quantity"
+            required="required"
+          />
+        </td>
+      `;
+      
+      itemsTableBody.appendChild(row);
+    }
+  });
+
+  // Add additional validation when interacting with the input value
+  numItemsInput.addEventListener('blur', function () {
+    let numRows = parseInt(numItemsInput.value) || 0;
+
+    // If numItems is less than 1, reset it to 1
+    if (numRows <= 0) {
+      numItemsInput.value = 0;
+    }
+  });
+
+  // Additional prevention if using buttons to modify the value
+  numItemsInput.addEventListener('change', function () {
+    let numRows = parseInt(numItemsInput.value) || 0;
+
+    // Prevent negative numbers by setting to 1 if below 1
+    if (numRows <= 0) {
+      numItemsInput.value = 0; // Set to 1 if the value is invalid
+    }
+  });
+</script>
+
+
+
+{% endblock %}

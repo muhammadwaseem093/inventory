@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        
+        <title>{% block title %}Inventory Management System{% endblock %}</title>
+  </head>
+  <body class="sb-nav-fixed">
+          {% if request.path != '/accounts/login/' and request.path != '/accounts/register/' %}
+              {% include 'partials/header.html' %}
+      {% endif %}
+
+      <div id="layoutSidenav">
+        
+    
+          {% if request.path != '/accounts/login/' and request.path != '/accounts/register/' and request.path != '/accounts/logout/' %}
+              <aside class="flex-shrink-0 bg-gray-800">
+                  {% if request.user.role and request.user.role.name == 'super_admin' %}
+                      {% include 'partials/sidebar_super_admin.html' %}
+                  {% elif request.user.role and request.user.role.name == 'admin' %}
+                      {% include 'partials/sidebar_admin.html' %}
+                  {% elif request.user.role and request.user.role.name == 'staff' %}
+                      {% include 'partials/sidebar_staff.html' %}
+                  {% endif %}
+              </aside>
+          {% endif %}
+          </div>
+
+
+          <div id="layoutSidenav_content"  class="flex-grow mt-5">
+              <main class="flex-grow p-3">
+                    <div class="container">
+
+                      {% block content %}{% endblock %}
+                 
+                    </div>
+
+              </main>
+              
+          </div>
+
+
+        
+              {% include 'partials/footer.html' %}
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+   
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

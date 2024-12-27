@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Edit Type</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card mt-4 mx-auto p-4 bg-light shadow-sm">
+        <div class="card-body">
+          <div class="container">
+            <form id="contact-form" role="form" method="POST" action="{% url 'process_type_update' type.id %}">
+              {% csrf_token %}
+              <div class="controls">
+                
+                <!-- IGP Number and Messer -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group mb-3">
+                      <label for="type_name">Name *</label>
+                      <input
+                        id="type_name"
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Enter Type Name"
+                        required="required"
+                        value="{{ type.name }}"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group
+                    mb-3">
+                      <label for="description">Description</label>
+                      <input
+                        id="description"
+                        type="text"
+                        name="description"
+                        class="form-control"
+                        placeholder="Enter Description"
+                        value="{{ type.description }}"
+                      />
+                    </div>
+                  </div>
+
+                </div>
+                <div class="text-center mt-4">
+                  <button type="submit" class="btn btn-success btn-lg">Update</button>
+                  <a href="{% url 'type_list' %}" class="btn btn-danger btn-lg">Cancel</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
