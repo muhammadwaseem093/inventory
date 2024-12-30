@@ -22,9 +22,9 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("igp/", include("igp.urls")),
     # path("ogp/", include("ogp.urls")),
-    # path("supplier/", include("supplier.urls")),
-    # path("vendor/", include("vendor.urls")),
-    # path("items/", include("items.urls")),
+    path("supplier/", include("supplier.urls")),
+    path("vendor/", include("vendor.urls")),
+    path("items/", include("items.urls")),
     path("type/", include("type.urls")),
     path("unit/", include("unit.urls")),
     

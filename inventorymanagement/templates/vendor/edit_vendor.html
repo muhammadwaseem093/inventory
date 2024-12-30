@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Edit Vendor</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card mt-4 mx-auto p-4 bg-light shadow-sm">
+        <div class="card-body">
+          <div class="container">
+            <form id="contact-form" role="form" method="POST" action="{% url 'process_vendor_edit' vendor.id %}">
+              {% csrf_token %}
+              <div class="controls">
+                
+                <!-- Create 3 rows: the first with two columns for name and phone, the second for address, and the third for buttons -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name">Name *</label>
+                      <input 
+                        id="name" 
+                        type="text" 
+                        name="name"
+                        class="form-control" 
+                        placeholder="Please enter vendor name *" 
+                        required="required" 
+                        data-error="Vendor name is required." 
+                        value="{{ vendor.name }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phone">Phone *</label>
+                      <input 
+                        id="phone" 
+                        type="text" 
+                        name="phone" 
+                        class="form-control"
+                        placeholder="Please enter vendor phone number *"
+                        required="required" 
+                        data-error="Vendor phone number is required." 
+                        value="{{ vendor.phone}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="address">Address *</label>
+                      <textarea 
+                        id="address" 
+                        name="address" 
+                        class="form-control" 
+                        placeholder="Please enter vendor address *" 
+                        required="required" 
+                        data-error="Vendor address is required.">{{ vendor.address }}</textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center mt-4">
+                      <button type="submit" class="btn btn-success btn-lg">Update</button>
+                      <a href="{% url 'vendor_list' %}" class="btn btn-danger btn-lg">Cancel</a>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

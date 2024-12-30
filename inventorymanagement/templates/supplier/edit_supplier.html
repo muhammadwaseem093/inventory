@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Edit Supplier</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card mt-4 mx-auto p-4 bg-light shadow-sm">
+        <div class="card-body">
+          <div class="container">
+            <form id="contact-form" role="form" method="POST" action="{% url 'process_supplier_edit' supplier.id %}">
+              {% csrf_token %}
+              <div class="controls">
+                
+                <!-- Create 3 rows: the first with two columns for name and phone, the second for address, and the third for buttons -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name">Name *</label>
+                      <input 
+                        id="name" 
+                        type="text" 
+                        name="name"
+                        class="form-control" 
+                        placeholder="Please enter supplier name *" 
+                        required="required" 
+                        data-error="Supplier name is required." 
+                        value="{{ supplier.name }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phone">Phone *</label>
+                      <input 
+                        id="phone" 
+                        type="text" 
+                        name="phone" 
+                        class="form-control"
+                        placeholder="Please enter supplier phone number *"
+                        required="required" 
+                        data-error="Supplier phone number is required." 
+                        value="{{ supplier.phone}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="address">Address *</label>
+                      <textarea 
+                        id="address" 
+                        name="address" 
+                        class="form-control" 
+                        placeholder="Please enter supplier address *" 
+                        required="required" 
+                        data-error="Supplier address is required.">{{ supplier.address }}</textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center mt-4">
+                      <button type="submit" class="btn btn-success btn-lg">Update</button>
+                      <a href="{% url 'supplier_list' %}" class="btn btn-danger btn-lg">Cancel</a>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

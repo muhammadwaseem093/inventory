@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import Http404
 from .forms import UnitForm
 from .models import Unit
 from django.contrib.auth.decorators import login_required
@@ -63,11 +64,19 @@ def process_unit_edit(request, unit_id):
     return render(request, 'unit/edit_unit.html', {'form': form, 'unit': unit})
 
 @login_required
-@role_required('admin')
+@role_required('admin')  # Ensure only admin can delete
 def delete_unit(request, unit_id):
-    unit = Unit.objects.get(id=unit_id)
-    unit.delete()
-    messages.success(request, 'Unit deleted successfully')
-    return redirect('unit_list')
+    try:
+        unit = Unit.objects.get(id=unit_id)
+    except Unit.DoesNotExist:
+        raise Http404("Unit not found")
+
+    if request.method == 'POST':
+        unit.delete()
+        messages.success(request, 'unit deleted successfully!')
+        return redirect('unit_list') 
+
+    return render(request, 'unit/delete_unit.html', {'unit': unit})
+
 
 

@@ -9,18 +9,18 @@
                 </a>
                 {% comment %} <div class="sb-sidenav-menu-heading">Interface</div> {% endcomment %}
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-sign-in text-success"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-cogs fa-sync-alt text-primary"></i></div>
                     &nbsp;IGP
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'igp_entry' %}"><i class="fas fa-plus text-success"></i>&nbsp;Add </a>
+                        <a class="nav-link" href="{% url 'igp_entry' %}"><i class="fas fa-plus text-danger"></i>&nbsp;Add </a>
                         <a class="nav-link" href="{% url 'view_igp' %}"><i class="fas fa-list text-info"></i>&nbsp;List</a>
                     </nav>
                 </div>  
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-sign-in text-success"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-spinner text-primary"></i></div>
                     &nbsp;OGP
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -40,7 +40,7 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <!-- Unit Menu -->
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#unit" aria-expanded="false" aria-controls="unit">
-                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in text-success"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-box text-success"></i></div>
                             &nbsp;Unit
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
@@ -54,9 +54,9 @@
                 </div>
                 <div class="collapse" id="settings" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <!-- Unit Menu -->
+                    
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#type" aria-expanded="false" aria-controls="unit">
-                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in text-success"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-tags text-success"></i></div>
                             &nbsp;Type
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
@@ -64,6 +64,51 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{% url 'create_type' %}"><i class="fas fa-plus text-success"></i>&nbsp;Add</a>
                                 <a class="nav-link" href="{% url 'type_list' %}"><i class="fas fa-list text-info"></i>&nbsp;List</a>
+                            </nav>
+                        </div>
+                    </nav>
+                </div>
+                <div class="collapse" id="settings" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Items" aria-expanded="false" aria-controls="unit">
+                            <div class="sb-nav-link-icon"><i class="fas fa-th-large text-success"></i></div>
+                            &nbsp;Items
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="Items" aria-labelledby="headingThree" data-bs-parent="#settings">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'create_item' %}"><i class="fas fa-plus text-success"></i>&nbsp;Add</a>
+                                <a class="nav-link" href="{% url 'item_list' %}"><i class="fas fa-list text-info"></i>&nbsp;List</a>
+                            </nav>
+                        </div>
+                    </nav>
+                </div>
+                <div class="collapse" id="settings" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#vendor" aria-expanded="false" aria-controls="unit">
+                            <div class="sb-nav-link-icon"><i class="fas fa-th-large text-success"></i></div>
+                            &nbsp;Vendor
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="vendor" aria-labelledby="headingFour" data-bs-parent="#settings">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'create_vendor' %}"><i class="fas fa-plus text-success"></i>&nbsp;Add</a>
+                                <a class="nav-link" href="{% url 'vendor_list' %}"><i class="fas fa-list text-info"></i>&nbsp;List</a>
+                            </nav>
+                        </div>
+                    </nav>
+                </div>
+                <div class="collapse" id="settings" aria-labelledby="headingFive" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#supplier" aria-expanded="false" aria-controls="unit">
+                            <div class="sb-nav-link-icon"><i class="fas fa-th-large text-success"></i></div>
+                            &nbsp;Supplier
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="supplier" aria-labelledby="headingFive" data-bs-parent="#settings">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'create_supplier' %}"><i class="fas fa-plus text-success"></i>&nbsp;Add</a>
+                                <a class="nav-link" href="{% url 'supplier_list' %}"><i class="fas fa-list text-info"></i>&nbsp;List</a>
                             </nav>
                         </div>
                     </nav>

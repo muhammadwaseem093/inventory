@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.http import Http404
 from .forms import TypeForm
 from .models import Type
 from django.contrib.auth.decorators import login_required
@@ -62,10 +63,16 @@ def process_type_update(request, type_id):
     return render(request, 'type/edit_type.html', {'form': form, 'type': type})
 
 @login_required
-@role_required('admin')
+@role_required('admin')  # Ensure only admin can delete
 def delete_type(request, type_id):
-    type = Type.objects.get(id=type_id)
-    type.delete()
-    messages.success(request, 'Type deleted successfully')
-    return redirect('type_list')
+    try:
+        type = Type.objects.get(id=type_id)
+    except Type.DoesNotExist:
+        raise Http404("Type not found")
 
+    if request.method == 'POST':
+        type.delete()
+        messages.success(request, 'Type deleted successfully!')
+        return redirect('type_list') 
+
+    return render(request, 'type/delete_type.html', {'type': type})
