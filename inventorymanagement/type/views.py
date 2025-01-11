@@ -8,12 +8,12 @@ from utils.decorators import role_required
 # Create your views here.
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def create_type(request):
     return render(request, 'type/create_type.html')
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_type_creation(request):
     if request.method == 'POST':
         form = TypeForm(request.POST)
@@ -34,19 +34,19 @@ def process_type_creation(request):
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def type_list(request):
     types = Type.objects.all()
     return render(request, 'type/type_list.html', {'types': types})
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def edit_type(request, type_id):
     type = Type.objects.get(id=type_id)
     return render(request, 'type/edit_type.html', {'type': type})
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_type_update(request, type_id):
     type = Type.objects.get(id=type_id)
     if request.method == 'POST':

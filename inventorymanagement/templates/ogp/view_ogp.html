@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center mt-5">
+        <h1>OGP Records</h1>
+    </div>
+
+    <!-- Search and Filter Form with Create Button -->
+    <form method="GET" class="row mt-3 align-items-center">
+        <div class="col-md-4">
+            <input type="text" name="ogp_number" class="form-control" placeholder="Search by OGP Number" value="{{ request.GET.ogp_number }}">
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="messer" class="form-control" placeholder="Search by Vendor Name (Messer)" value="{{ request.GET.messer }}">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+        <div class="col-md-2 text-end">
+            <a href="{% url 'ogp_entry' %}" class="btn btn-success w-100">Create New OGP</a>
+        </div>
+    </form>
+
+    <!-- Search Active Message -->
+    {% if search_active %}
+    <div class="alert alert-info mt-3">
+        Showing results for your search. <a href="{% url 'view_ogp' %}" class="text-decoration-none">Clear Search</a>
+    </div>
+    {% endif %}
+
+    <!-- Buttons Row (Delete All, Download, Delete Selected) -->
+    <div class="row mt-3 justify-content-end mr-1">
+        <div class="col-md-auto">
+            <!-- Delete All Button -->
+            <button type="button" class="btn btn-danger btn-sm" id="delete_all_btn">
+                <i class="fas fa-trash-alt"></i> Delete All
+            </button>
+        </div>
+        <div class="col-md-auto">
+            <!-- Download Button -->
+            <button type="button" class="btn btn-success btn-sm" id="download_btn">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+        <div class="col-md-auto text-end">
+            <!-- Delete Selected Button (hidden by default) -->
+            <button type="submit" class="btn btn-danger btn-sm" id="delete_selected_btn" style="display:none;">
+                <i class="fas fa-trash-alt"></i> Delete Selected
+            </button>
+        </div>
+    </div>
+
+    <!-- IGP Table -->
+    <div class="row mt-3">
+        <div class="col-lg-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <!-- Separate Delete Form -->
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <table class="table table-bordered table-striped">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="select_all">
+                                        </th>
+                                        <th>OGP No</th>
+                                        <th>Messer</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Items</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ogp in ogp_list %}
+                                    <tr class="igp_row">
+                                        <td>
+                                            <input type="checkbox" name="selected_ogps" value="{{ ogp.id }}" class="select_record" style="display:none;">
+                                        </td>
+                                        <td>{{ ogp.ogp_number }}</td>
+                                        <td>{{ ogp.messer }}</td>
+                                        <td>{{ ogp.date }}</td>
+                                        <td>{{ ogp.type }}</td>
+                                        <td>
+                                            <a href="" class="btn btn-info btn-sm">View Items</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'update_ogp' ogp.id %}" class="btn btn-primary btn-sm">
+                                                Edit
+                                            </a>
+                                            <a href="{% url 'delete_ogp' ogp.id %}" class="btn btn-danger btn-sm">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No records found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- Pagination -->
+                            <div class="d-flex justify-content-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        {% if ogp_list.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ ogp_list.previous_page_number }}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% for num in ogp_list.paginator.page_range %}
+                                        <li class="page-item {% if num == ogp_list.number %}active{% endif %}">
+                                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                        {% endfor %}
+                                        {% if ogp_list.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ ogp_list.next_page_number }}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle "Select All" checkbox
+    document.getElementById('select_all').addEventListener('change', function() {
+        let checkboxes = document.querySelectorAll('.select_record');
+        let deleteBtn = document.getElementById('delete_selected_btn');
+        let allSelected = false;
+
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = document.getElementById('select_all').checked;
+            checkbox.style.display = 'inline-block'; // Show checkboxes when selecting
+            if (checkbox.checked) {
+                allSelected = true;
+            }
+        });
+
+        // Show or hide "Delete Selected" button based on selection
+        if (allSelected) {
+            deleteBtn.style.display = 'inline-block';
+        } else {
+            deleteBtn.style.display = 'none';
+        }
+    });
+
+    // Handle "Delete All" button to show checkboxes
+    document.getElementById('delete_all_btn').addEventListener('click', function() {
+        let checkboxes = document.querySelectorAll('.select_record');
+        let deleteBtn = document.getElementById('delete_selected_btn');
+        
+        // Show all checkboxes after clicking "Delete All"
+        checkboxes.forEach(function(checkbox) {
+            checkbox.style.display = 'inline-block'; // Make checkboxes visible
+        });
+
+        // Show "Delete Selected" button
+        deleteBtn.style.display = 'inline-block';
+    });
+
+    // Handle "Delete Selected" button visibility
+    document.querySelectorAll('.select_record').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            let checkboxes = document.querySelectorAll('.select_record');
+            let deleteBtn = document.getElementById('delete_selected_btn');
+            let anySelected = Array.from(checkboxes).some(function(c) { return c.checked; });
+
+            // Show or hide "Delete Selected" button
+            deleteBtn.style.display = anySelected ? 'inline-block' : 'none';
+        });
+    });
+
+    // Handle "Download" button (Implement download functionality as per your need)
+    document.getElementById('download_btn').addEventListener('click', function() {
+        alert('Download functionality needs to be implemented');
+    });
+</script>
+{% endblock %}

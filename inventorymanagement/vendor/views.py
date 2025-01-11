@@ -8,12 +8,12 @@ from utils.decorators import role_required
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def create_vendor(request):
     return render(request, 'vendor/create_vendor.html')
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_vendor_creation(request):
     if request.method =='POST':
         form = VendorForm(request.POST)
@@ -30,21 +30,21 @@ def process_vendor_creation(request):
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def vendor_list(request):
     vendors = Vendor.objects.all()
     return render(request, 'vendor/vendor_list.html', {"vendors":vendors})
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def edit_vendor(request, vendor_id):
     vendor = Vendor.objects.get(id=vendor_id)
     return render(request, 'vendor/edit_vendor.html', {'vendor':vendor})
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_vendor_edit(request, vendor_id):
     vendor = Vendor.objects.get(id=vendor_id)
     if request.method == 'POST':

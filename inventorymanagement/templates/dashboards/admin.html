@@ -1,139 +1,303 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block title %}Admin Dashboard{% endblock %}
-{%block header %}Admin Dashboard{% endblock %}
+{% block header %}Admin Dashboard{% endblock %}
 {% block content %}
-    <div id="layoutSidenav_content" >
-        <main class="flex-grow p-4">
-            <div class="container-fluid px- py-4">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Primary Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Warning Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Success Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Danger Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
-                                Area Chart Example
-                            </div>
-                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Bar Chart Example
-                            </div>
-                            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        DataTable Example
-                    </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <tr>
-                                    <td>Jackson Bradshaw</td>
-                                    <td>Director</td>
-                                    <td>New York</td>
-                                    <td>65</td>
-                                    <td>2008/09/26</td>
-                                    <td>$645,750</td>
-                                </tr>
-                                <tr>
-                                    <td>Olivia Liang</td>
-                                    <td>Support Engineer</td>
-                                    <td>Singapore</td>
-                                    <td>64</td>
-                                    <td>2011/02/03</td>
-                                    <td>$234,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Bruno Nash</td>
-                                    <td>Software Engineer</td>
-                                    <td>London</td>
-                                    <td>38</td>
-                                    <td>2011/05/03</td>
-                                    <td>$163,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Sakura Yamamoto</td>
-                                    <td>Support Engineer</td>
-                                    <td>Tokyo</td>
-                                    <td>37</td>
-                                    <td>2009/08/19</td>
-                                    <td>$139,575</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<div class="container-fluid mt-4">
+  <!-- Row for Cards -->
+  <div class="row">
+    <!-- Suppliers Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card shadow h-00 py-2">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                Total Suppliers</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-600">{{ supplier_count }}</div>
             </div>
-        </main>
+            <div class="col-auto">
+              <i class="fas fa-users fa-2x text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Add relevant content -->
-{% endblock %}
 
+    <!-- Vendors Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                Total Vendors</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ vendor_count }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-briefcase fa-2x text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IGP Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                Total IGP</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ igp_count }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-truck fa-2x text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OGP Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                Total OGP</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ogp_count }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-clipboard fa-2x text-danger"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="row">
+    <!-- IGP Chart -->
+    <div class="col-xl-4 col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">IGP Creation by Supplier</h6>
+        </div>
+        <div class="card-body">
+          <canvas id="igpChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- OGP Chart -->
+    <div class="col-xl-4 col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">OGP Creation by Vendor</h6>
+        </div>
+        <div class="card-body">
+          <canvas id="ogpChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Chart -->
+    <div class="col-xl-4 col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">IGP vs OGP Comparison</h6>
+        </div>
+        <div class="card-body">
+          <canvas id="comparisonChart"></canvas>
+        </div>
+      </div>
+    </div>
+</div>
+
+  
+
+  <!-- Recent Orders Table -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Detailed Activity</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Activity</th>
+              <th>Detail</th>
+              <th>TimeStamp</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dummy data rows -->
+            <tr>
+              <td>John Doe</td>
+              <td>Login</td>
+              <td>User logged into the system</td>
+              <td>2024-12-31 08:30:00</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Jane Smith</td>
+              <td>Purchase</td>
+              <td>Item #12345 purchased</td>
+              <td>2024-12-31 09:15:22</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Emily Johnson</td>
+              <td>Account Update</td>
+              <td>Updated profile details</td>
+              <td>2024-12-31 10:00:10</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Michael Lee</td>
+              <td>Password Reset</td>
+              <td>Requested password reset</td>
+              <td>2024-12-31 11:25:45</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Alice Brown</td>
+              <td>Order Cancellation</td>
+              <td>Order #78901 canceled</td>
+              <td>2024-12-31 12:05:30</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Tom Wilson</td>
+              <td>Login</td>
+              <td>User logged into the system</td>
+              <td>2024-12-31 13:10:25</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Chris Evans</td>
+              <td>Purchase</td>
+              <td>Item #67890 purchased</td>
+              <td>2024-12-31 14:20:55</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Olivia Harris</td>
+              <td>Account Update</td>
+              <td>Updated email address</td>
+              <td>2024-12-31 15:15:00</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>David Clark</td>
+              <td>Login</td>
+              <td>User logged into the system</td>
+              <td>2024-12-31 16:05:12</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+            <tr>
+              <td>Sarah Adams</td>
+              <td>Password Reset</td>
+              <td>Requested password reset</td>
+              <td>2024-12-31 17:25:43</td>
+              <td><button class="btn btn-sm btn-primary">Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<!-- Add Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Dummy Data for IGP Chart (Top Suppliers)
+  const igpCtx = document.getElementById('igpChart').getContext('2d');
+  const igpChart = new Chart(igpCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Supplier 1', 'Supplier 2', 'Supplier 3', 'Supplier 4', 'Supplier 5'], // Dummy supplier names
+      datasets: [{
+        label: 'IGP Count',
+        data: [10, 15, 7, 20, 12], // Dummy data for the IGP counts
+        backgroundColor: '#4e73df',
+        borderColor: '#4e73df',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          beginAtZero: true
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // Dummy Data for OGP Chart (Top Vendors)
+  const ogpCtx = document.getElementById('ogpChart').getContext('2d');
+  const ogpChart = new Chart(ogpCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Vendor 1', 'Vendor 2', 'Vendor 3', 'Vendor 4', 'Vendor 5'], // Dummy vendor names
+      datasets: [{
+        label: 'OGP Count',
+        data: [8, 18, 10, 25, 14], // Dummy data for the OGP counts
+        backgroundColor: '#f6c23e',
+        borderColor: '#f6c23e',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          beginAtZero: true
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // Dummy Data for Comparison Chart (IGP vs OGP)
+  const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+  const canvas = document.getElementById('comparisonChart');
+  canvas.width=300;
+  canvas.height=150;
+  const comparisonChart = new Chart(comparisonCtx, {
+    type: 'line',
+    data: {
+      labels: ['IGPs', 'OGPs'], // Labels for comparison
+      datasets: [{
+        label: 'IGP vs OGP Comparison',
+        data: [100, 85], // Dummy data for IGPs and OGPs comparison
+        backgroundColor: ['#4e73df', '#f6c23e'],
+        borderColor: ['#4e73df', '#f6c23e'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+        tooltip: { enabled: true }
+      }
+    }
+  });
+</script>
+
+
+{% endblock %}

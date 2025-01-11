@@ -1,0 +1,54 @@
+/* Sidebar Styles */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #343a40;
+    color: #fff;
+    padding-top: 30px;
+}
+
+#sidebar .nav-link {
+    padding: 15px 20px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #495057;
+}
+
+/* Page Content */
+#page-content-wrapper {
+    margin-left: 250px;
+    width: 100%;
+}
+
+.navbar {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Toggle button styling */
+#sidebar-toggle, #menu-toggle {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        display: none;
+        width: 200px;
+    }
+
+    #sidebar.active {
+        display: block;
+    }
+
+    #page-content-wrapper {
+        margin-left: 0;
+    }
+}

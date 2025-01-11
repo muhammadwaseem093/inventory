@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', event => {
         const isSidebarToggled = document.body.classList.contains('sb-sidenav-toggled');
 
         if (isSidebarToggled) {
-            sidenavContent.style.marginLeft = '-100px';
+            sidenavContent.style.marginLeft = '100px';
             sidenavContent.style.width = '100%';
         } else {
             sidenavContent.style.marginLeft = '220px';

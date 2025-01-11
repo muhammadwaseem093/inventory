@@ -1,260 +1,93 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-  <div class="text-center mt-5">
-    <h1>Create IGP</h1>
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4 text-primary">Create IGP </h1>
+    <p class="text-muted">Fill out the form below to create a new IGP record</p>
   </div>
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <div class="card mt-4 mx-auto p-4 bg-light shadow-sm">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow-lg">
         <div class="card-body">
-          <div class="container">
-            <form id="contact-form" role="form" method="POST" action="{% url 'process_create_igp' %}">
-              {% csrf_token %}
-              <div class="controls">
-                
-                <!-- IGP Number and Messer -->
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group mb-3">
-                      <label for="igp_number">IGP Number *</label>
-                      <input
-                        id="igp_number"
-                        type="text"
-                        name="igp_number"
-                        class="form-control"
-                        placeholder="Enter IGP Number"
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group mb-3">
-                      <label for="messer">Messer *</label>
-                      <input
-                        id="messer"
-                        type="text"
-                        name="messer"
-                        class="form-control"
-                        placeholder="Enter Messer"
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group mb-3">
-                      <label for="messer">Date *</label>
-                      <input
-                        id="date"
-                        type="date"
-                        name="date"
-                        class="form-control"
-                        required="required"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group mb-3">
-                      <label for="igp_number">Vehicle Number</label>
-                      <input
-                        id="vehicle_number"
-                        type="text"
-                        name="vehicle_number"
-                        class="form-control"
-                        placeholder="Enter Vehicle Number"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group mb-3">
-                      <label for="igp.vehicle_type">Vehicle Type </label>
-                  <select id="vehicle_type" name="vehicle_type" class="form-control" required="required">
-                    <option value="mazda">Mazda</option>
-                    <option value="toyota">Toyota</option>
-                    <option value="suzuki">Suzuki</option>
-                  </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group mb-3">
-                      <label for="messer">Driver Name</label>
-                      <input
-                        id="driver_name"
-                        type="text"
-                        name="driver_name"
-                        class="form-control"
-                        placeholder="Enter Driver Name"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group mb-3">
-                      <label for="messer">Driver CNIC</label>
-                      <input
-                        id="driver_cnic"
-                        type="text"
-                        name="driver_cnic"
-                        class="form-control"
-                        placeholder="00000-0000000-0"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="type">Type *</label>
-                    <select id="type" name="type" class="form-control" required="required">
-                      <option value="Raw material">Raw Material</option>
-                    </select>
-                  </div>
-                </div>
-                </div>
-
-                <!-- Address -->
-                <div class="form-group mb-3">
-                  <label for="address">Address</label>
-                  <input
-                    id="address"
-                    type="text"
-                    name="address"
-                    class="form-control"
-                    placeholder="Enter Address"
-                  />
-                </div>
-
-                <!-- Type -->
-                
-
-                <!-- No of Items Input -->
-                <div class="form-group mb-3">
-                  <label for="num_items">Number of Items *</label>
-                  <input
-                    id="num_items"
-                    type="number"
-                    name="num_items"
-                    class="form-control"
-                    placeholder="Enter Number of Items"
-                    required="required"
-                  />
-                </div>
-
-                <!-- No of Items Table -->
-                <div class="form-group mb-3">
-                  <label for="items">Items</label>
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead class="table-light">
-                        <tr>
-                          <th>Sr No</th>
-                          <th>Description</th>
-                          <th>Unit</th>
-                          <th>Quantity</th>
-                        </tr>
-                      </thead>
-                      <tbody id="items_table_body">
-                        <!-- Rows will be dynamically generated here -->
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <!-- Submit and Cancel Buttons -->
-                <div class="text-center mt-4">
-                  <button type="submit" class="btn btn-success btn-lg">Submit</button>
-                  <a href="{% url 'igp_entry' %}" class="btn btn-primary btn-lg">Clear</a>
-                  <a href="{% url 'view_igp' %}" class="btn btn-danger btn-lg">Cancel</a>
-                </div>
+          <form id="contact-form" method="POST" action="{% url 'process_create_igp' %}">
+            {% csrf_token %}
+            <div class="row">
+              <!-- IGP Number -->
+              <div class="col-md-4 mb-3">
+                <label for="igp_number" class="form-label text-secondary">IGP Number *</label>
+                <input type="text" id="igp_number" name="igp_number" class="form-control  border-primary" placeholder="Enter IGP Number" required>
               </div>
-            </form>
-          </div>
+              <!-- Messer -->
+              <div class="col-md-4 mb-3">
+                <label for="messer" class="form-label text-secondary">Messer *</label>
+                <select id="messer" name="messer" class="form-select custom-select" onchange="updateAddress()" required>
+                  <option value="">Select Messer</option>
+                  {% for supplier in suppliers %}
+                    <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <!-- Date -->
+              <div class="col-md-4 mb-3">
+                <label for="date" class="form-label text-secondary">Date *</label>
+                <input type="date" id="date" name="date" class="form-control border-primary" required>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Vehicle Number -->
+              <div class="col-md-4 mb-3">
+                <label for="vehicle_number" class="form-label text-secondary">Vehicle Number</label>
+                <input type="text" id="vehicle_number" name="vehicle_number" class="form-control border-primary" placeholder="Enter Vehicle Number">
+              </div>
+              <!-- Vehicle Type -->
+              <div class="col-md-4 mb-3">
+                <label for="vehicle_type" class="form-label text-secondary">Vehicle Type</label>
+                <input type="text" id="vehicle_type" name="vehicle_type" class="form-control border-primary" placeholder="Enter Vehicle Type">
+              </div>
+              <!-- Driver Name -->
+              <div class="col-md-4 mb-3">
+                <label for="driver_name" class="form-label text-secondary">Driver Name</label>
+                <input type="text" id="driver_name" name="driver_name" class="form-control border-primary" placeholder="Enter Driver Name">
+              </div>
+            </div>
+            <div class="row">
+              <!-- Driver Contact -->
+              <div class="col-md-6 mb-3">
+                <label for="driver_contact" class="form-label text-secondary">Driver Contact</label>
+                <input type="number" id="driver_contact" name="driver_contact" class="form-control border-primary" placeholder="00000000000">
+              </div>
+              <!-- Type -->
+              <div class="col-md-6 mb-3">
+                <label for="type" class="form-label text-secondary">Type *</label>
+                <select id="type" name="type" class="form-select custom-select border-primary" required>
+                  <option value="">Select Type</option>
+                  {% for type in types %}
+                    <option value="{{ type.id }}">{{ type.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- Address -->
+            <div class="mb-3">
+              <label for="address" class="form-label text-secondary">Address</label>
+              <input type="text" id="address" name="address" class="form-control border-primary">
+            </div>
+            <!-- Number of Items -->
+            
+            <!-- Buttons -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-success me-3">Submit</button>
+              <a href="{% url 'igp_entry' %}" class="btn btn-warning me-3">Clear</a>
+              <a href="{% url 'view_igp' %}" class="btn btn-danger">Cancel</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- JavaScript for dynamic row creation -->
-<script>
-  const numItemsInput = document.getElementById('num_items');
-  const itemsTableBody = document.getElementById('items_table_body');
-  
-  // Ensure the value is never less than 1
-  numItemsInput.addEventListener('input', function () {
-    let numRows = parseInt(numItemsInput.value) || 0;
-    
-    // Stop creating input fields if the value is 0 or negative
-    if (numRows <= 0) {
-      numItemsInput.value = 0; // Set to 1 if the value is less than or equal to 0
-      numRows = 0; // Reset number of rows to 1
-    }
-
-    // Clear existing rows before creating new ones
-    itemsTableBody.innerHTML = '';
-
-    // Generate rows based on the positive value of numRows
-    for (let i = 1; i <= numRows; i++) {
-      const row = document.createElement('tr');
-      
-      row.innerHTML = `
-        <td>${i}</td>
-        <td>
-          <input
-            type="text"
-            name="description_${i}"
-            class="form-control"
-            placeholder="Enter Description"
-            required="required"
-          />
-        </td>
-        <td>
-          <input
-            type="text"
-            name="unit_${i}"
-            class="form-control"
-            placeholder="Enter Unit"
-            required="required"
-          />
-        </td>
-        <td>
-          <input
-            type="number"
-            name="quantity_${i}"
-            class="form-control"
-            placeholder="Enter Quantity"
-            required="required"
-          />
-        </td>
-      `;
-      
-      itemsTableBody.appendChild(row);
-    }
-  });
-
-  // Add additional validation when interacting with the input value
-  numItemsInput.addEventListener('blur', function () {
-    let numRows = parseInt(numItemsInput.value) || 0;
-
-    // If numItems is less than 1, reset it to 1
-    if (numRows <= 0) {
-      numItemsInput.value = 0;
-    }
-  });
-
-  // Additional prevention if using buttons to modify the value
-  numItemsInput.addEventListener('change', function () {
-    let numRows = parseInt(numItemsInput.value) || 0;
-
-    // Prevent negative numbers by setting to 1 if below 1
-    if (numRows <= 0) {
-      numItemsInput.value = 0; // Set to 1 if the value is invalid
-    }
-  });
-</script>
-
-
+<!-- JavaScript -->
 
 {% endblock %}

@@ -1,7 +1,176 @@
 {% extends 'base.html' %}
+
 {% block title %}Staff Dashboard{% endblock %}
+
 {% block header %}Staff Dashboard{% endblock %}
+
 {% block content %}
-<h2 class="text-xl font-bold">Staff Dashboard Content</h2>
-<!-- Add relevant content -->
+<div class="container-fluid mt-4">
+
+  <!-- Key Metrics (Summary Cards) -->
+  <div class="row">
+    <!-- Total Suppliers Card -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-body text-center">
+          <i class="fas fa-users fa-3x text-primary mb-3"></i>
+          <h5 class="font-weight-bold text-muted">Total Suppliers</h5>
+          <p class="h3">{{ supplier_count }}</p>
+          <small class="text-muted">New this Month: 3</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Vendors Card -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-body text-center">
+          <i class="fas fa-briefcase fa-3x text-warning mb-3"></i>
+          <h5 class="font-weight-bold text-muted">Total Vendors</h5>
+          <p class="h3">{{ vendor_count }}</p>
+          <small class="text-muted">Pending Payments: 5</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Items Card -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-body text-center">
+          <i class="fas fa-box fa-3x text-success mb-3"></i>
+          <h5 class="font-weight-bold text-muted">Total Items in Inventory</h5>
+          <p class="h3">{{ items_count }}</p>
+          <small class="text-muted">Low Stock: 15</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total IGPs Card -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-body text-center">
+          <i class="fas fa-truck fa-3x text-danger mb-3"></i>
+          <h5 class="font-weight-bold text-muted">Total IGPs</h5>
+          <p class="h3">{{ igp_count }}</p>
+          <small class="text-muted">Pending IGPs: 5</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Dropdown -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <select id="filterDropdown" class="form-select">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Graphs and Charts -->
+  <div class="row">
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-header bg-primary text-white">
+          <h6 class="m-0 font-weight-bold">Monthly Trends</h6>
+        </div>
+        <div class="card-body">
+          <!-- Placeholder for Monthly IGP/OGP chart -->
+          <canvas id="monthlyTrendsChart" height="250"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-header bg-primary text-white">
+          <h6 class="m-0 font-weight-bold">Stock Status</h6>
+        </div>
+        <div class="card-body">
+          <!-- Placeholder for Stock Status chart -->
+          <canvas id="stockStatusChart" height="250"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity Table -->
+  <div class="card shadow-sm mb-4 border-0 rounded-lg">
+    <div class="card-header bg-primary text-white">
+      <h6 class="m-0 font-weight-bold">Recent Activity</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Activity</th>
+              <th>Details</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for activity in recent_activities %}
+            <tr>
+              <td>{{ activity.user }}</td>
+              <td>{{ activity.type }}</td>
+              <td>{{ activity.details }}</td>
+              <td>{{ activity.timestamp }}</td>
+              <td>
+                <button class="btn btn-sm btn-info">Details</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // JavaScript to handle dropdown filter changes and chart rendering
+  document.getElementById('filterDropdown').addEventListener('change', function() {
+    const filter = this.value;
+    // Trigger AJAX request or update charts based on the selected filter
+    console.log("Selected Filter:", filter);
+  });
+
+  // Example chart setup (requires Chart.js library)
+  const ctxTrends = document.getElementById('monthlyTrendsChart').getContext('2d');
+  const monthlyTrendsChart = new Chart(ctxTrends, {
+    type: 'line',
+    data: {
+      labels: {{ trends_labels }},
+      datasets: [{
+        label: 'IGPs',
+        data: {{ trends_igp }},
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+      }, {
+        label: 'OGPs',
+        data: {{ trends_ogp }},
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+      }]
+    }
+  });
+
+  const ctxStock = document.getElementById('stockStatusChart').getContext('2d');
+  const stockStatusChart = new Chart(ctxStock, {
+    type: 'pie',
+    data: {
+      labels: ['Suppliers', 'Vendors'],
+      datasets: [{
+        data: [{{ supplier_igp_count }}, {{ vendor_ogp_count }}],
+        backgroundColor: ['#FF6384', '#36A2EB']
+      }]
+    }
+  });
+</script>
 {% endblock %}

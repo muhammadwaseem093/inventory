@@ -22,3 +22,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+class ActivityLog(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_name=models.CharField(max_length=255)
+    activity_details = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.activity_name}"

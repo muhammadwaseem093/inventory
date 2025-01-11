@@ -6,7 +6,8 @@ urlpatterns = [
     path('super-admin/', super_admin_dashboard, name='super_admin_dashboard'),
     path('admin/', admin_dashboard, name='admin_dashboard'),
     path('staff/', staff_dashboard, name='staff_dashboard'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
-    path('register/', register_view, name='register'),
+    path('', login_view, name='login_view'),
+    path('logout/', logout_view, name='logout_view'),
+    path('register/', register_view, name='register_view'),
+ 
 ]

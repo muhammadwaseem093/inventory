@@ -27,8 +27,13 @@
                                     <td>{{ type.name }}</td> <!-- Assuming 'messer' is a User model -->
                                     <td>{{ type.description }}</td>
                                     <td>
+                                        {% if not request.user.role.name == 'staff' %}
                                         <a href="{% url 'edit_type' type.id %}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{% url 'delete_type' type.id %}" class="btn btn-danger"><i class="fas fa-times"></i></a>
+                                        {% else %}
+                                        <a href="{% url 'edit_type' type.id %}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{% url 'delete_type' type.id %}" class="btn btn-danger disabled"><i class="fas fa-times"></i></a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% empty %}

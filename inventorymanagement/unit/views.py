@@ -8,13 +8,13 @@ from utils.decorators import role_required
 # Create your views here.
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def create_unit(request):
     return render(request, 'unit/create_unit.html')
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_unit_creation(request):
     if request.method == "POST":
         form = UnitForm(request.POST)
@@ -34,20 +34,21 @@ def process_unit_creation(request):
 
 
 
-
+@login_required
+@role_required('admin','staff')
 def unit_list(request):
     units = Unit.objects.all()
     return render(request, 'unit/unit_list.html', {'units': units})
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def edit_unit(request, unit_id):
     unit = Unit.objects.get(id=unit_id)
     return render(request, 'unit/edit_unit.html', {'unit': unit})
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_unit_edit(request, unit_id):
     unit = Unit.objects.get(id=unit_id)
     if request.method == "POST":

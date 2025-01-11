@@ -7,13 +7,13 @@ from django.contrib.auth.decorators import login_required
 from utils.decorators import role_required
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def create_supplier(request):
     return render(request, 'supplier/create_supplier.html')
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_supplier_creation(request):
     if request.method == 'POST':
         form = SupplierForm(request.POST)
@@ -32,20 +32,20 @@ def process_supplier_creation(request):
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     return render(request, 'supplier/supplier_list.html', {'suppliers':suppliers})
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def edit_supplier(request, supplier_id):
     supplier = Supplier.objects.get(id=supplier_id)
     return render(request, 'supplier/edit_supplier.html', {'supplier':supplier})
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_supplier_edit(request, supplier_id):
     supplier = Supplier.objects.get(id=supplier_id)
     if request.method == 'POST':
@@ -75,3 +75,4 @@ def delete_supplier(request, supplier_id):
         messages.success(request, 'Supplier Deleted Successfully!')
         return redirect('supplier_list')
     return render(request, 'supplier/delete_supplier.html', {'supplier':supplier})
+

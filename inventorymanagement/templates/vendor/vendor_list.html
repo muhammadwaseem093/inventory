@@ -29,8 +29,13 @@
                                     <td>{{ vendor.phone }}</td>
                                     <td>{{ vendor.address }}</td>
                                     <td>
+                                        {% if not request.user.role.name == 'staff' %}
                                         <a href="{% url 'edit_vendor' vendor.id %}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{% url 'delete_vendor' vendor.id %}" class="btn btn-danger"><i class="fas fa-times"></i></a>
+                                        {% else %}
+                                        <a href="{% url 'edit_vendor' vendor.id %}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{% url 'delete_vendor' vendor.id %}" class="btn btn-danger disabled"><i class="fas fa-times"></i></a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% empty %}

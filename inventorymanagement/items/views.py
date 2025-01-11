@@ -6,13 +6,23 @@ from .models import Item
 from django.contrib.auth.decorators import login_required
 from utils.decorators import role_required
 
+
+
+def custom_404(request, exception):
+    return render(request, '404.html',status=404)
+
+def custom_403(request, exception):
+    return render(request, '403.html', status=403)
+
+
+
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def create_item(request):
     return render(request, 'items/create_item.html')
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_item_creation(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
@@ -27,20 +37,20 @@ def process_item_creation(request):
     return render(request, 'items/create_item.html', {'form':form})
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def item_list(request):
     items = Item.objects.all()
     return render(request, 'items/item_list.html',{'items':items})
 
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def edit_item(request, item_id):
     item = Item.objects.get(id=item_id)
     return render(request, 'items/edit_item.html', {'item':item})
 
 @login_required
-@role_required('admin')
+@role_required('admin','staff')
 def process_item_edit(request, item_id):
     item = Item.objects.get(id=item_id)
     if request.method =='POST':
@@ -64,6 +74,7 @@ def delete_item(request, item_id):
         item = Item.objects.get(id=item_id)
     except Item.DoesNotExist:
         raise Http404("Item not found")
+    
 
     if request.method == 'POST':
         item.delete()

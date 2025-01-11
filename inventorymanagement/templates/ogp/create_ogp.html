@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4 text-primary">Create OGP </h1>
+    <p class="text-muted">Fill out the form below to create a new OGP record</p>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form id="contact-form" method="POST" action="{% url 'process_create_ogp' %}">
+            {% csrf_token %}
+            <div class="row">
+              <!-- IGP Number -->
+              <div class="col-md-4 mb-3">
+                <label for="ogp_number" class="form-label text-secondary">OGP Number *</label>
+                <input type="text" id="ogp_number" name="ogp_number" class="form-control  border-primary" placeholder="Enter OGP Number" required>
+              </div>
+              <!-- Messer -->
+              <div class="col-md-4 mb-3">
+                <label for="messer" class="form-label text-secondary">Messer *</label>
+                <select id="messer" name="messer" class="form-select custom-select" onchange="updateAddress()" required>
+                  <option value="">Select Messer</option>
+                  {% for vendor in vendors %}
+                    <option value="{{ vendor.id }}">{{ vendor.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <!-- Date -->
+              <div class="col-md-4 mb-3">
+                <label for="date" class="form-label text-secondary">Date *</label>
+                <input type="date" id="date" name="date" class="form-control border-primary" required>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Vehicle Number -->
+              <div class="col-md-4 mb-3">
+                <label for="vehicle_number" class="form-label text-secondary">Vehicle Number</label>
+                <input type="text" id="vehicle_number" name="vehicle_number" class="form-control border-primary" placeholder="Enter Vehicle Number">
+              </div>
+              <!-- Vehicle Type -->
+              <div class="col-md-4 mb-3">
+                <label for="vehicle_type" class="form-label text-secondary">Vehicle Type</label>
+                <input type="text" id="vehicle_type" name="vehicle_type" class="form-control border-primary" placeholder="Enter Vehicle Type">
+              </div>
+              <!-- Driver Name -->
+              <div class="col-md-4 mb-3">
+                <label for="driver_name" class="form-label text-secondary">Driver Name</label>
+                <input type="text" id="driver_name" name="driver_name" class="form-control border-primary" placeholder="Enter Driver Name">
+              </div>
+            </div>
+            <div class="row">
+              <!-- Driver Contact -->
+              <div class="col-md-6 mb-3">
+                <label for="driver_contact" class="form-label text-secondary">Driver Contact</label>
+                <input type="number" id="driver_contact" name="driver_contact" class="form-control border-primary" placeholder="00000000000">
+              </div>
+              <!-- Type -->
+              <div class="col-md-6 mb-3">
+                <label for="type" class="form-label text-secondary">Type *</label>
+                <select id="type" name="type" class="form-select custom-select border-primary" required>
+                  <option value="">Select Type</option>
+                  {% for type in types %}
+                    <option value="{{ type.id }}">{{ type.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- Address -->
+            <div class="mb-3">
+              <label for="address" class="form-label text-secondary">Address</label>
+              <input type="text" id="address" name="address" class="form-control border-primary">
+            </div>
+            <!-- Number of Items -->
+            
+            <!-- Buttons -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-success me-3">Submit</button>
+              <a href="{% url 'ogp_entry' %}" class="btn btn-warning me-3">Clear</a>
+              <a href="{% url 'view_ogp' %}" class="btn btn-danger">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+
+{% endblock %}

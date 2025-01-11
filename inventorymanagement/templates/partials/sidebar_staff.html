@@ -1,12 +1,203 @@
-<!-- templates/partials/sidebar.html -->
-<div class="w-1/5 bg-gray-800 min-h-screen p-4">
-    <h2 class="text-xl font-bold mb-6">Inventory Management</h2>
-    <ul>
-        <li class="mb-4"><a href="{% url 'super_admin_dashboard' %}" class="text-gray-300 hover:text-white">Dashboard</a></li>
-        <li class="mb-4"><a href="#" class="text-gray-300 hover:text-white">Accounts</a></li>
-        <li class="mb-4"><a href="#" class="text-gray-300 hover:text-white">Inventory</a></li>
-        <li class="mb-4"><a href="#" class="text-gray-300 hover:text-white">Reports</a></li>
-        <li class="mb-4"><a href="#" class="text-gray-300 hover:text-white">Settings</a></li>
-        <li class="mb-4"><a href="{% url 'logout' %}" class="text-red-500 hover:text-red-700">Logout</a></li>
+{% load static%}
+<div
+  class="sidebar"
+  data-color="purple"
+  data-background-color="white"
+  data-image="{% static 'assets/img/sidebar-1.jpg' %}"
+>
+  <div class="logo">
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href=""
+      class="simple-text logo-normal"
+    >
+      Admin Dashboard
+    </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <li class="nav-item {% if request.resolver_match.view_name == 'staff_dashboard' %} active {% endif %}">
+        <a class="nav-link" href="{% url 'staff_dashboard'}">
+          <i class="material-icons">dashboard</i>
+          <p>Dashboard</p>
+        </a>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="igpDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">input</i>
+          <p>IGP</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="igpDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'igp_entry' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'view_igp' %}">
+              <i class="material-icons">visibility</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="ogpDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">output</i>
+          <p>OGP</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="ogpDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'ogp_entry' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'view_ogp' %}">
+              <i class="material-icons">visibility</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="supplierDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">local_shipping</i>
+          <p>Supplier</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="supplierDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'create_supplier' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'supplier_list' %}">
+              <i class="material-icons">list</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="vendorDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">store</i>
+          <p>Vendor</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="vendorDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'create_vendor' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'vendor_list' %}">
+              <i class="material-icons">list</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="itemsDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">category</i>
+          <p>Items</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="itemsDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'create_item' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'item_list' %}">
+              <i class="material-icons">list</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="typeDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">widgets</i>
+          <p>Type</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="typeDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'create_type' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'type_list' %}">
+              <i class="material-icons">list</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item {% if 'page-user' in segment %} active {% endif %} dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="unitDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="material-icons">straighten</i>
+          <p>Unit</p>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="unitDropdown">
+          <li>
+            <a class="dropdown-item" href="{% url 'create_unit' %}">
+              <i class="material-icons">add_circle_outline</i> Add
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'unit_list' %}">
+              <i class="material-icons">list</i> View
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
+  </div>
 </div>
